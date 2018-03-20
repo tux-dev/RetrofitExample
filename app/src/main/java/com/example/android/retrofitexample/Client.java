@@ -1,8 +1,10 @@
 package com.example.android.retrofitexample;
 
+import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -34,6 +36,7 @@ public class Client {
                 .baseUrl(BASE_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
 
@@ -43,5 +46,9 @@ public class Client {
 
     public Call<BreedsModel> getBreeds() {
         return myCallService.getBreedsList();
+    }
+
+    public Observable<BreedsModel> getBreedsObservable() {
+        return myCallService.getBreedsObservable();
     }
 }
